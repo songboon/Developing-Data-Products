@@ -1,24 +1,25 @@
 library(shiny)
 
-# Define server logic required to draw a histogram
+# Load the ggplot2 package which provides
+# the 'mpg' dataset.
+library(ggplot2)
+
+# Define a server for the Shiny app
 shinyServer(function(input, output) {
-  library(shiny)
   
-  # Rely on the 'WorldPhones' dataset in the datasets
-  # package (which generally comes preloaded).
-  library(datasets)
-  
-  # Define a server for the Shiny app
-  shinyServer(function(input, output) {
-    
-    # Fill in the spot we created for a plot
-    output$phonePlot <- renderPlot({
-      
-      # Render a barplot
-      barplot(WorldPhones[,input$region]*1000, 
-              main=input$region,
-              ylab="Number of Telephones",
-              xlab="Year")
-    })
+  # Filter data based on selections
+  output$table <- renderDataTable({
+    data <- mpg
+    if (input$man != "All"){
+      data <- data[data$manufacturer == input$man,]
+    }
+    if (input$cyl != "All"){
+      data <- data[data$cyl == input$cyl,]
+    }
+    if (input$trans != "All"){
+      data <- data[data$trans == input$trans,]
+    }
+    data
   })
+  
 })

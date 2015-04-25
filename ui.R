@@ -1,34 +1,38 @@
 library(shiny)
 
-# Rely on the 'WorldPhones' dataset in the datasets
-# package (which generally comes preloaded).
-library(datasets)
+# Load the ggplot2 package which provides
+# the 'mpg' dataset.
+library(ggplot2)
 
 # Define the overall UI
 shinyUI(
-  
-  # Use a fluid Bootstrap layout
-  fluidPage(    
+  fluidPage(
+    titlePanel("Basic DataTable"),
     
-    # Give the page a title
-    titlePanel("Telephones by region"),
-    
-    # Generate a row with a sidebar
-    sidebarLayout(      
-      
-      # Define the sidebar with one input
-      sidebarPanel(
-        selectInput("region", "Region:", 
-                    choices=colnames(WorldPhones)),
-        hr(),
-        helpText("Data from AT&T (1961) The World's Telephones.")
+    # Create a new Row in the UI for selectInputs
+    fluidRow(
+      column(4, 
+             selectInput("man", 
+                         "Manufacturer:", 
+                         c("All", 
+                           unique(as.character(mpg$manufacturer))))
       ),
-      
-      # Create a spot for the barplot
-      mainPanel(
-        plotOutput("phonePlot")  
-      )
-      
-    )
-  )
+      column(4, 
+             selectInput("trans", 
+                         "Transmission:", 
+                         c("All", 
+                           unique(as.character(mpg$trans))))
+      ),
+      column(4, 
+             selectInput("cyl", 
+                         "Cylinders:", 
+                         c("All", 
+                           unique(as.character(mpg$cyl))))
+      )        
+    ),
+    # Create a new row for the table.
+    fluidRow(
+      dataTableOutput(outputId="table")
+    )    
+  )  
 )
