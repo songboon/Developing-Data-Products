@@ -1,0 +1,53 @@
+---
+title: "Index"
+author: "Song Boon"
+date: "Sunday, April 26, 2015"
+output: slidy_presentation
+---
+
+What this deck of slide is about
+========================================================
+This is my first presentation slide on mtcars for this course.
+
+- This is a very basic exploration of the dataset mtcars
+- I used it to explore mtcars by transmission type, gears and cylinders.
+
+Location of the Code and Shiny App
+========================================================
+The code is found on GitHub:
+https://github.com/songboon/Developing-Data-Products
+
+The shinyapps is found here: 
+https://shtsb.shinyapps.io/m9w3test/
+
+The start of the server.R code
+========================================================
+Load the shiny package:
+library(shiny)
+
+Load the ggplot2 package which provides the mtcars dataset:
+library(ggplot2)
+
+Define a server for the Shiny app
+========================================================
+<h2>shinyServer(function(input, output)</h2>
+  
+  Filter data based on selections:
+  <li> gear
+  <li> cylinder and
+  <li> transimission
+
+
+The ui.R code
+========================================================
+<h2>Define the overall UI in shinyUI</h2>
+
+    titlePanel("Very Basic Data Table Exploration")
+    
+    Create a new Row in the UI for selectInputs:
+    - Gear
+    - Transmission Type
+    - Cylinders
+
+
+
